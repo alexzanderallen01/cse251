@@ -21,91 +21,109 @@ Not passing an assert or answering #10 and #12: 0 points (code must pass all ass
 from unittest import TestCase
 from cse251functions import *
 
-# 1) TODO write a function called 'perform_math' that takes three parameters:
-#      - initial_value: int
-#      - value: int
-#      - operation: str
-#      - return value: float
-#      The function should perform the mathematical operation, represented
-#      by the string operation parameter, on the initial_value and value.
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a function that requires the three parameters: initial_value, value, & operation
+def perform_math(initial_value, value, operation):
+    #Created a series of if & elif to check all possible operations to determ what type of math should be used.
+    if operation == "+":
+        #Return the sum of determed operation & its sums
+        return initial_value + value
+    elif operation == "-":
+        return initial_value - value
+    elif operation == "*":
+        return initial_value * value
+    elif operation == "/":
+        return initial_value / value
+    elif operation == "//":
+        return initial_value // value
+    elif operation == "**":
+        return initial_value ** value
+    
+#Created a function that requires the two parameters: word_to_find & words.
+def find_word_index(word_to_find, word_dict):
+    #Returns the value in the list at the index provided by word_to_find
+    return word_dict.index(word_to_find)
+        
+#Created a function that requires the two parameters: key & ord_dict.
+def get_value_from_dict_using_key(key, ord_dict):
+    #Returns the value in the dictionary using the key provided by the varible called key
+    return ord_dict[key]
 
-# 2) TODO write a function called 'find_word_index' that takes two parameters:
-#      - word_to_find: str
-#      - words: list
-#      - return value: int
-#      The function should return the index value of the word_to_find in the words list.
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a function that requires the two parameters: key & url_dict.
+def get_list_of_urls_from_dict(key, url_dict):
+    #Returns the list in the dictionary using the key provided by the varible called key
+    return url_dict[key]
 
-# 3) TODO write a function called 'get_value_from_dict_using_key' that takes two parameters:
-#      - key: str
-#      - word_dict: dict
-#      - return value: str
-#      The function should return the value (which will be a string) mapped to the key.
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a function that requires the two parameters: urls & name.
+def find_url(urls, name):
+    #used a for loop to iterate through the list urls. Stored each part of the list in i one at a time while iterating.
+    for i in urls:
+        #Used if condition to check if item in name is also in the current url
+        if i.find(name) == name:
+            #returned url if it contend name
+            return i
+        else:
+            #return empty string if no url had name
+            return ""
 
-# 4) TODO write a function called 'get_list_of_urls_from_dict' that takes two parameters:
-#      - key: str
-#      - url_dict: dict
-#      - return value: list
-#      The function should return the value (which will be a list) mapped to the key.
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a function that requires the two parameters: filename & str_to_find.
+def find_str_in_file(filename, str_to_find):
+    #opened file given to the function & stored it in a varible
+    file = open(filename)
+    #stored first line of the stored file
+    line = file.readline()
+    #Used condition while to loop through every line in the file one line at a time
+    while line:
+        #determed weather or not current line in file is "str_to_find"
+        if line.strip() == str_to_find:
+            #closed file
+            file.close()
+            #return true if "str_to_find" is found
+            return True
+        else:
+            #put next line into varible
+            line = file.readline()
+    #extra closed file in case no "str_to_find" Could have used with, but short on time
+    file.close()
+    return False
 
-# 5) TODO write a function called 'find_url' that takes two parameters:
-#      - urls: list
-#      - name: str
-#      - return value: str
-#      The function should return the url that contains the name within a list of urls,
-#      else return a blank string.
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a class.
+class MyParentClass():
+    #Created a constructor function that requires the four parameters.
+    def __init__(obj, value: int, values: list, name: str):
+        #set all varibles in the object varible to needed values given to constructor
+        obj.value = value
+        obj.values = values
+        obj.name = name
+    #Created a function that requires the two parameters: obj & key.
+    def get_value_using_index(obj, key):
+        #Returns the value in the list at the index provided by key
+        return obj.values[key]
 
-# 6) TODO write a function called 'find_str_in_file' that takes two parameters:
-#      - filename: str
-#      - str_to_find: str
-#      - return value: bool
-#      The function should return true if str_to_find is within the file, else false
-#      Delete these instructions and replace with your own description of that the function does.
+#Created a class that inherits the MyParentClass class.
+class MyChildClass(MyParentClass):
+    #Created a constructor function that requires the five parameters.
+    def __init__(childObj, value: int, values: list, name: str, age: int):
+        #used super to used constructor to set all varibles in the object varible to needed values given to constructor
+        super().__init__(value, values, name)
+        #set final varible in the object varible to needed value
+        childObj.age = age
 
-# 7) TODO write a class called 'MyParentClass'. The constructor should take three parameters:
-#      - value: int
-#      - values: list
-#      - name: str
-#      Add a method called 'get_value_using_index' that returns the value
-#      in the values list at an index that is passed.
-#      Delete these instructions and replace with your own description of that the function does.
-
-# 8) TODO write a class called 'MyChildClass'. The class should extend the MyParentClass.
-#      The constructor should take four parameters:
-#      - value: int
-#      - values: list
-#      - name: str
-#      - age: int
-#      The constructor should call super and pass in the appropriate parameters
-#      Delete these instructions and replace with your own description of that the function does.
-
-# 9) TODO write a function called 'pass_by_reference_mutable_example' that takes two parameters:
-#      - lists_are_passed_by_reference_and_mutable: list
-#      - str_to_add: str
-#      - return value: str
-#      The function should append the str_to_add to the list and return index zero. Notice that in the asserts,
-#      that the memory id of the list stays the same after adding the string. Also, the function
-#      does not need to return the list in order for it to see the newly added item. Since the function
-#      needs to return a string, you can make changes to a list without needing to return it from a function.
-#      Delete these instructions and replace with your own description of that the function does.
 #      10) TODO: Provide a quick explanation of what pass-by-reference means. Also, what does mutable mean?
+        #Pass means to provide an argument to a function. By reference means that the argument you're passing to the function is a reference to a variable that already exists in memory rather than an independent copy of that variable. (Found on google, but I currently think it is right)
+        #mutable means has the ability to change
+#Created a function that requires the two parameters: lists_are_passed_by_reference_and_mutable & str_to_add
+def pass_by_reference_mutable_example(lists_are_passed_by_reference_and_mutable, str_to_add):
+    #returned list with varible appended to the end
+    return lists_are_passed_by_reference_and_mutable.append(str_to_add)
 
-# 11) TODO write a function called 'pass_by_reference_immutable_example' that takes two parameters:
-#      - strings_are_pass_by_reference_and_immutable: string
-#      - str_to_add: str
-#      - return value: str
-#      The function should append the str_to_add to the strings_are_pass_by_reference_and_immutable string.
-#      Notice that in the asserts, that the memory id of the first string and the return string are different.
-#      Delete these instructions and replace with your own description of that the function does.
 #      12) TODO: What does immutable mean?
-
-# Don't change any of the assert lines. All asserts should pass. You should see "All tests passed!" if all assert pass.
-# If an assert doesn't pass, you will see an AssertionError (see https://www.w3schools.com/python/ref_keyword_assert.asp).
-# The AssertionError will show you why it didn't pass (meaning, it is not an error with the assertion code, but with your code)
+        #immutable means does not have the ability to change
+#Created a function that requires the two parameters: strings_are_pass_by_reference_and_immutable & str_to_add
+def pass_by_reference_immutable_example(strings_are_pass_by_reference_and_immutable, str_to_add):
+    #makes string varible that equal both strings added together
+    string = strings_are_pass_by_reference_and_immutable + str_to_add
+    #returns string varible
+    return string
 
 def main():
     ''' Know how to:
@@ -176,7 +194,7 @@ def main():
         - Readings: https://www.geeksforgeeks.org/python-classes-and-objects/, https://www.geeksforgeeks.org/extend-class-method-in-python/, https://realpython.com/python-super/
     '''
     # 13) TODO instantiate an object using MyParentClass with the following three parameters: (1, [5, 6, 7], "3")
-    obj = ...
+    obj = MyParentClass(1, [5, 6, 7], "3")
     assert obj.value == 1
     assert obj.values == [5, 6, 7]
     assert obj.name == "3"
@@ -189,7 +207,7 @@ def main():
     # class constructor already creates the value, values, and name parameters. Do not write these in the child
     # class. Instead, the child constructor should call the parent constructor. Same for the 'get_value_using_index'
     # function, do not rewrite this in the child class.
-    childObj = ...
+    childObj = MyChildClass(1, [5, 6, 7], "3", 10)
     assert childObj.value == 1
     assert childObj.values == [5, 6, 7]
     assert childObj.name == "3"
